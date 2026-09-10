@@ -8,13 +8,13 @@
 
 ## Features
 
-- KernelSU support
-- SUSFS — hide root and module traces from detectors
+- sKernelSU support
+- SUSFS v2.3.0 driver integrated
 - SELinux: Enforcing
 
 ## Warning
 
-- This fork is maintained **casually and irregularly** by a non-developer. Do not expect timely updates, fixes, or responses.
+- This fork is maintained casually and irregularly by a non-developer. Do not expect timely updates, fixes, or responses.
 - The kernel source code may fall behind upstream at any time and may be deprecated without notice.
 - **You are being warned.**
 - Credit me if you use this source for any of your projects.
@@ -29,7 +29,7 @@
 
 ## Notes
 
-- This is intended for **personal** use. Proceed with caution.
+- This is intended for personal use. Proceed with caution.
 - For a more actively maintained source, refer to [upstream](https://github.com/notkernel-oss/not_samsung.sm8250-4.19).
 
 ## Credits
