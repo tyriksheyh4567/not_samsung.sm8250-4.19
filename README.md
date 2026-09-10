@@ -2,9 +2,9 @@
 
 ## Introduction
 
-- This is a **personal** fork of [notkernel-oss/not_samsung.sm8250-4.19](https://github.com/notkernel-oss/not_samsung.sm8250-4.19).
+- This is a **personal** fork of [notkernel-oss/not_samsung.sm8250-4.19](https://github.com/notkernel-oss/not_samsung.sm8250-4.19)
 - All branches are prone to force push, with the sole exception of `lineage-23.2`
-- Updates are **not guaranteed** and may be infrequent or stop entirely.
+- Updates are **not guaranteed** and may be infrequent or stop entirely
 
 ## Features
 
@@ -29,8 +29,8 @@
 
 ## Notes
 
-- This is intended for personal use. Proceed with caution.
-- For a more actively maintained source, refer to [upstream](https://github.com/notkernel-oss/not_samsung.sm8250-4.19).
+- This is intended for personal use
+- For a more actively maintained source, refer to [upstream](https://github.com/notkernel-oss/not_samsung.sm8250-4.19)
 
 ## Credits
 
