@@ -1,30 +1,40 @@
-# (not) Samsung SM8250 Kernel
+# (not) Samsung SM8250 Kernel fork
 
-# Introduction
-- This repository is always compliant with the latest LineageOS common sm8250 kernel changes.
+## Introduction
+
+- This is a **personal** fork of [notkernel-oss/not_samsung.sm8250-4.19](https://github.com/notkernel-oss/not_samsung.sm8250-4.19).
 - All branches are prone to force push, with the sole exception of `lineage-23.2`
+- Updates are **not guaranteed** and may be infrequent or stop entirely.
 
-## Warning:
-- The kernel source code is **always** under development and may cause some unpredictable problems.
+## Features
+
+- KernelSU support
+- SUSFS — hide root and module traces from detectors
+- SELinux: Enforcing
+
+## Warning
+
+- This fork is maintained **casually and irregularly** by a non-developer. Do not expect timely updates, fixes, or responses.
+- The kernel source code may fall behind upstream at any time and may be deprecated without notice.
 - **You are being warned.**
 - Credit me if you use this source for any of your projects.
 - Please use it with caution.
 
 ## Warranty
+
 - None, none at all. I am handing you a **sharp knife**, it is not on me if you stab yourself with it.
 - no warranties.
 - no support.
 - not.
 
 ## Notes
-- This kernel is combining contributions from multiple upstreams to make it as practical and well-rounded as possible.
-- Code required for OneUI support was selectively cherry-picked from various sources.
-- Support for all the remaining Samsung SM8250 devices is available in the source, however it probably needs some work to get it refined.
-- I (s-k-y.e) support all the roms available for r8q, from Android 11 up to Android 17 QPR0, with OneUI support starting in Android14.
-- Some users says that it also works fine in Android13/OneUI5.1, however that's unsupported.
 
-## Telegram
-- [t.me/not_kernel](https://t.me/not_kernel)
-- [t.me/not_kernelbuilds](https://t.me/not_kernelbuilds)
+- This is intended for **personal** use. Proceed with caution.
+- For a more actively maintained source, refer to [upstream](https://github.com/notkernel-oss/not_samsung.sm8250-4.19).
 
-## Engineered to perfection.
+## Credits
+
+- [s-k-y.e](https://github.com/doubledashdot) — original not_kernel and the SUSFS patch that was reverted upstream
+- [notkernel-oss](https://github.com/notkernel-oss) — upstream source
+
+## not.

@@ -12,11 +12,6 @@ on:
       build:
         type: string
         required: true
-    secrets:
-      TELEGRAM_BOT_TOKEN:
-        required: true
-      TELEGRAM_CHAT_ID:
-        required: true
 
 permissions:
   contents: write
@@ -63,47 +58,17 @@ jobs:
           seconds=$((duration % 60))
           echo "BUILD_DURATION=${minutes}m ${seconds}s" >> $GITHUB_ENV
 
-      - name: Upload to Telegram
-        run: |
-          gitsha1=$(git rev-parse --short HEAD)
-          zip_file=$(ls not-*.zip 2>/dev/null | head -n 1)
-          if [ -z "$zip_file" ]; then
-            echo "No zip found!"
-            exit 1
-          fi
-          DEVICE_NAME_ESCAPED=$(echo "$DEVICE_NAME" | sed 's/[][_*()~`>#+=|{}.!-]/\\&/g')
-          DEVICE_ESCAPED=$(echo "$DEVICE" | sed 's/[][_*()~`>#+=|{}.!-]/\\&/g')
-          printf "| Localversion: `cat out/include/config/kernel.release`
-           | Build Date: `date +'%d %B %Y'`
-           | Build commit hash: $gitsha1
-           | KernelSU: yes
-           | SELinux: Enforcing" >> buildDetails.txt
-          buildDetails="`cat buildDetails.txt`"
-          msg="*not\\-kernel* $BUILD for the *${DEVICE_NAME_ESCAPED} \\(${DEVICE_ESCAPED}\\)*
-          * *
-          \`\`\`
-          $buildDetails
-          \`\`\`
-          *@not\\_kernel \\| @sKernelSU*
-          * * "
-          file="$zip_file"
-          curl -s -F document=@$file "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendDocument" \
-          -F chat_id="${{ secrets.TELEGRAM_CHAT_ID }}" \
-          -F "disable_web_page_preview=true" \
-          -F "parse_mode=markdownv2" \
-          -F caption="$msg"
-
       - name: Set ZIP File Path
         run: |
-         zip=$(ls not-*.zip 2>/dev/null | head -n1)
-         if [ -z "$zip" ]; then
-           echo "❌ No ZIP found!"
-           exit 1
-         fi
-         echo "zip_file=$zip" >> $GITHUB_ENV
+          zip=$(ls not-*.zip 2>/dev/null | head -n1)
+          if [ -z "$zip" ]; then
+            echo "❌ No ZIP found!"
+            exit 1
+          fi
+          echo "zip_file=$zip" >> $GITHUB_ENV
 
       - name: Set release tag
-        run: echo "RELEASE_TAG=${DEVICE}-$(date +'%Y%m%d')" >> $GITHUB_ENV
+        run: echo "RELEASE_TAG=${DEVICE}-$(date +'%Y%m%d')-pre" >> $GITHUB_ENV
 
       - name: Prepare Release Info
         run: |
@@ -126,20 +91,20 @@ jobs:
       - name: Debug ZIP
         run: ls -lh
 
-      - name: Create Release and Upload ZIP
+      - name: Create Pre-Release and Upload ZIP
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ env.RELEASE_TAG }}
           name: not_kernel ${{ env.KERNEL_VERSION }} for ${{ env.DEVICE_NAME }}
+          prerelease: true
           files: ${{ env.zip_file }}
           body: |
-             Clang version: ${{ env.CLANG_VERSION }}
-             Build Date: ${{ env.BUILD_DATE }}
-             KernelSU version: ${{ env.KSU_VERSION }} / ${{ env.KSU_VERSION_STR }}
-             SusFS version: ${{ env.SUSFS_VERSION }}
-             SELinux: Enforcing
-             Commit: ${{ env.COMMIT_HASH }}
-             Build completed in: ${{ env.BUILD_DURATION }}
-              
+            Clang version: ${{ env.CLANG_VERSION }}
+            Build Date: ${{ env.BUILD_DATE }}
+            KernelSU version: ${{ env.KSU_VERSION }} / ${{ env.KSU_VERSION_STR }}
+            SusFS version: ${{ env.SUSFS_VERSION }}
+            SELinux: Enforcing
+            Commit: ${{ env.COMMIT_HASH }}
+            Build completed in: ${{ env.BUILD_DURATION }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
