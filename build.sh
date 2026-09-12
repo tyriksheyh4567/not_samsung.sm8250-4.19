@@ -56,7 +56,12 @@ mkdir -p out
 echo -e "${YELLOW}building with: $DEFCONFIG${NC}"
 
 make O=out ARCH=arm64 $DEFCONFIG
+
+python3 scripts/patch-susfs.py
+
 make O=out ARCH=arm64 olddefconfig
+
+grep -E 'CONFIG_(KSU_SUSFS|KALLSYMS|THREAD_INFO_IN_TASK)' out/.config
 
 echo -e "\n${YELLOW}Starting compilation...${NC}\n"
 
@@ -111,3 +116,4 @@ cd ..
 
 echo -e "\n${GREEN}Completed in $((SECONDS / 60)) minute(s) and $((SECONDS % 60)) second(s)!${NC}"
 echo -e "${GREEN}Zip: $ZIPNAME${NC}"
+
